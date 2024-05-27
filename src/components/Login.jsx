@@ -133,7 +133,7 @@ const Login = ({ onLogin }) => {
       />
       <ErrorMsg>{PasswordError}</ErrorMsg>
       <Button type="submit" onClick={handleLogin} disabled={loading}>
-        {loading ? "로딩 중..." : "로그인"}
+        로그인
       </Button>
     </Container>
   );
