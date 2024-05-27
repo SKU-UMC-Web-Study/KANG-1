@@ -11,6 +11,18 @@ const Container = styled.main`
   align-items: center;
 `;
 
+const ForgetId = styled.p`
+  font-weight:bold;
+  display:inline;
+  font-size:13px;
+  margin-left:50px;
+`;
+
+const P = styled.p `
+  display:inline-block;
+  font-size:13px; 
+`;
+
 const Title = styled.div`
   font-size: 24px;
   margin-bottom: 20px;
@@ -52,84 +64,46 @@ const ErrorMsg = styled.div`
   margin-bottom: 10px;
 `;
 
-
 const Signup = () => {
   const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
   const [password, setPassword] = useState("");
-  const [password2, setPassword2] = useState("");
-  const [nameError, setNameError] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [ageError, setAgeError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [password2Error, setPassword2Error] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-
-  const validateName = () => {
-    if (!name) {
-      setNameError("이름을 입력해주세요.");
-    } else {
-      setNameError("");
-    }
-  };
-
-  const validateEmail = () => {
-    if (!email || !email.includes("@")) {
-      setEmailError("올바른 이메일을 입력해주세요.");
-    } else {
-      setEmailError("");
-    }
-  };
-
-  const validateAge = () => {
-    if (isNaN(age) ) {
-      setAgeError("나이를 올바르게 입력해주세요.");
-    } else if(age<0){
-      setAgeError("나이는 음수가 될 수 없습니다.");
-    } else if(age%1 !==0) {
-      setAgeError("나이는 소수가 될 수 없습니다.")
-    } else if(age<19){
-      setAgeError("우리 영화 사이트는 19살 이상만 가입이 가능합니다.") 
-    } else {
-      setAgeError()
-    }
-  };
-
-  const validatePassword = () => {
-    if (!password) {
-      setPasswordError("비밀번호를 입력해주세요.");
-    } else {
-      setPasswordError("");
-    }
-  };
-
-  const validatePassword2 = () => {
-    if (password !== password2) {
-      setPassword2Error("비밀번호가 일치하지 않습니다.");
-    } else {
-      setPassword2Error("");
-    }
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    validateName();
-    validateEmail();
-    validateAge();
-    validatePassword();
-    validatePassword2();
+    try {
+      const response = await fetch("http://localhost:8080/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          age,
+          username,
+          password,
+          passwordCheck,
+        }),
+      });
 
-   
-    if (!nameError && !emailError && !ageError && !passwordError && !password2Error) {
-  
-          console.log("회원가입 성공!");
-          navigate("/Login"); 
-
-    } else {
-      console.log("유효성 검사를 모두 통과해야 합니다.");
+      if (response.status === 201) {
+        const data = await response.json();
+        console.log("회원가입 성공!", data);
+        alert("회원가입이 정상적으로 처리되었습니다!");
+        navigate("/login");
+      } else {
+        const data = await response.json();
+        setError(data.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
 
@@ -144,11 +118,20 @@ const Signup = () => {
           value={name}
           onChange={(e) => {
             setName(e.target.value);
-            setNameError(""); 
+            setError(""); 
           }}
-          onBlur={validateName}
         />
-        <ErrorMsg>{nameError}</ErrorMsg>
+        <ErrorMsg>{error}</ErrorMsg>
+        <Input
+          type="text"
+          name="username"
+          placeholder="아이디를 입력해주세요"
+          value={username}
+          onChange={(e) => {
+            setUsername(e.target.value);
+            setError(""); 
+          }}
+        />
         <Input
           type="email"
           name="email"
@@ -156,11 +139,9 @@ const Signup = () => {
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
-            setEmailError(""); 
+            setError(""); 
           }}
-          onBlur={validateEmail}
         />
-        <ErrorMsg>{emailError}</ErrorMsg>
         <Input
           type="number"
           name="age"
@@ -168,11 +149,9 @@ const Signup = () => {
           value={age}
           onChange={(e) => {
             setAge(e.target.value);
-            setAgeError(""); 
+            setError(""); 
           }}
-          onBlur={validateAge}
         />
-        <ErrorMsg>{ageError}</ErrorMsg>
         <Input
           type="password"
           name="password"
@@ -180,26 +159,24 @@ const Signup = () => {
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
-            setPasswordError(""); 
+            setError(""); 
           }}
-          onBlur={validatePassword}
         />
-        <ErrorMsg>{passwordError}</ErrorMsg>
         <Input
           type="password"
-          name="password2"
+          name="passwordCheck"
           placeholder="비밀번호를 다시 입력해주세요"
-          value={password2}
+          value={passwordCheck}
           onChange={(e) => {
-            setPassword2(e.target.value);
-            setPassword2Error(""); 
-                    }}
-          onBlur={validatePassword2}
+            setPasswordCheck(e.target.value);
+            setError(""); 
+          }}
         />
-        <ErrorMsg>{password2Error}</ErrorMsg>
-        <Button type="submit" onClick={handleSubmit}>
+        <Button type="submit">
           제출하기
         </Button>
+        <P>이미 아이디가 있으신가요?</P>
+        <ForgetId onClick={() => navigate('/login')}>로그인 페이지로 이동하기</ForgetId>
       </Form>
     </Container>
   );

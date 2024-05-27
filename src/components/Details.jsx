@@ -85,7 +85,8 @@ const Details = () => {
   const [movie, setMovie] = useState(null);
   const [credits, setCredits] = useState(null);
 
-  const API_KEY = "215f09dabe10c24a540887f85a29f81f";
+  const API_KEY = "215f09dabe10c24a540887f85a29f81f"
+
 
   useEffect(() => {
     const fetchMovieDetails = async () => {

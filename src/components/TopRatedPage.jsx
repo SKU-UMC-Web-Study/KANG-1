@@ -14,9 +14,8 @@ const MovieList = styled.div`
 `;
 
 const MovieItem = styled.div`
-  width: 200px;
   border:  solid rgb(0,0,102);
-  padding: 0;
+  padding: 50px;
   border-radius: 10px;
   text-align: center;
   font-size: 9px;

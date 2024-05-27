@@ -28,6 +28,7 @@ const Search = styled.div`
     border-radius: 20px;
     margin-top: 20px;
     padding: 2px 20px;
+    
   }
 `;
 
@@ -35,7 +36,7 @@ const Find = styled.div`
   color: white;
   text-align: center;
   background-color: gray;
-  padding: 50px;
+  padding: 20px;
   font-size: 40px;
 `;
 
