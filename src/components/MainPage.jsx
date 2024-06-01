@@ -15,7 +15,17 @@ const Welcome = styled.div`
   background-color: black;
   color: white;
   font-size: 25px;
-  padding: 150px;
+  padding: 200px;
+
+  @media (max-width:768px) {
+    font-size:20px;
+    padding:100px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 15px;
+    padding: 75px;
+  }
 `;
 
 const Data = styled.p`
@@ -30,14 +40,27 @@ const Search = styled.div`
     padding: 2px 20px;
     
   }
+  @media (max-width: 480px) {
+    font-size: 15px;
+    padding: 20px;
 `;
 
 const Find = styled.div`
   color: white;
   text-align: center;
   background-color: gray;
-  padding: 20px;
+  padding: 169px;
   font-size: 40px;
+
+  @media (max-width:768px) {
+    font-size:20px;
+    padding:100px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 18px;
+    padding: 40px;
+  }
 `;
 
 const MovieList = styled.div`
