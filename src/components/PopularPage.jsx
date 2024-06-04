@@ -32,7 +32,7 @@ const MovieItem = styled.div`
   }
 `;
 
-const API_KEY = "215f09dabe10c24a540887f85a29f81f";
+const API_KEY = "api-key";
 
 const PopularPage = () => {
   const [movies, setMovies] = useState([]);
