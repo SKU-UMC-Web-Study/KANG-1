@@ -37,7 +37,7 @@ const NowPlayingPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const observer = useRef();
-  const API_KEY = '215f09dabe10c24a540887f85a29f81f';
+  const API_KEY = 'api-key';
 
   const fetchMovies = async (page) => {
     setIsLoading(true);
