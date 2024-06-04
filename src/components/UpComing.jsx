@@ -37,7 +37,7 @@ const MovieItem = styled.div`
 
 const UpComingPage = () => {
   const [movies, setMovies] = useState([]);
-  const API_KEY = '215f09dabe10c24a540887f85a29f81f'; 
+  const API_KEY = 'api-key'; 
 
   useEffect(() => {
     const fetchMovies = async () => {
