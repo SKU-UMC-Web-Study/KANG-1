@@ -6,3 +6,4 @@ export default configureStore({
         todo : todoSlice
     }
 })
+
