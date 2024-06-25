@@ -1,0 +1,19 @@
+.deleteBtn {
+ margin-left: 20px;
+ border: 0px;
+}
+
+.todolist {
+    display:inline;
+
+}
+
+.list {
+    display:inline-block;
+    list-style: none;
+    margin:15px;
+    text-align: left;
+    border: 2px solid cornflowerblue;
+    border-radius: 5px;
+    padding: 10px 5px;
+}
