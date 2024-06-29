@@ -1,16 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
 import React from 'react';
-import InputTodo from './components/InputTodo';
-import TodoList from './components/TodoList';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import ShoppingCart from './components/ShoppingCart';
 
 function App() {
   return (
     <Provider store = {store} >
-      <InputTodo></InputTodo>
-      <TodoList></TodoList>
+      <ShoppingCart/>
     </Provider>
   );
 }

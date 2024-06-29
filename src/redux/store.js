@@ -1,9 +1,14 @@
-import {configureStore} from '@reduxjs/toolkit'
-import todoSlice from './todoSlice'
+import { configureStore } from '@reduxjs/toolkit';
+import cartReducer from './cartSlice';
+import modalReducer from './modalSlice';
 
-export default configureStore({
-    reducer : {
-        todo : todoSlice
-    }
-})
+const rootReducer = {
+  cart: cartReducer,
+  modal: modalReducer,
+};
 
+const store = configureStore({
+  reducer: rootReducer,
+});
+
+export default store;
