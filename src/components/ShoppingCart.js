@@ -1,6 +1,4 @@
-// ShoppingCart.js
-
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {
@@ -9,9 +7,12 @@ import {
   removeItem,
   clearCart,
   calculateTotals,
+  fetchCartItems,
 } from "../redux/cartSlice";
 import { openModal, closeModal } from "../redux/modalSlice";
 import { CartIcon, ChevronUp, ChevronDown } from "../constants/icons";
+import LoadingSpinner from "./LoadingSpinner"; 
+
 
 const Banner = styled.div`
   font-weight: bold;
@@ -98,12 +99,29 @@ const ModalActions = styled.div`
   margin-left: 20px;
 `;
 
+
+
+const ErrorAlert = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 20px;
+  color: red;
+`;
+
 const ShoppingCart = () => {
   const dispatch = useDispatch();
   const items = useSelector((state) => state.cart.items);
   const totalQuantity = useSelector((state) => state.cart.totalQuantity);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
   const showModal = useSelector((state) => state.modal.showModal);
+  const status = useSelector((state) => state.cart.status); 
+
+
+  useEffect(() => {
+    dispatch(fetchCartItems());
+  }, [dispatch]);
 
   const handleAddItem = (item) => {
     dispatch(increaseItemQuantity(item));
@@ -127,6 +145,16 @@ const ShoppingCart = () => {
   const handleCancelClear = () => {
     dispatch(closeModal());
   };
+
+if (status === 'loading') {
+    return <LoadingSpinner />;
+  }
+
+  if (status === 'failed') {
+    alert('error'); 
+    return null;
+  }
+
 
   return (
     <Container>
